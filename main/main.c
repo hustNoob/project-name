@@ -17,7 +17,7 @@ const char *test_str = "hello world\n";
 #define SCL_PIN GPIO_NUM_4
 #define I2C_HZ 1000000
 #define I2C_MASTER_NUM I2C_NUM_0
-#define READ_ADD 0x43 //陀螺仪的地址
+#define READ_ADD 0x43 // 陀螺仪的地址
 #define I2C_MPU_ADDR 0x68
 #define DATA_LENGTH 100
 #define DATA_WR I2C_MASTER_WRITE
@@ -26,7 +26,6 @@ const uint8_t mpu6050_address; // address
 const bool ACK_EN = true;      // Enable ACK signal
 const TickType_t time_out = 1000 / portTICK_PERIOD_MS;
 static const char *TAG = "mpu6050";
-
 
 void uart_send()
 {
@@ -50,9 +49,7 @@ void uart_send()
     uart_write_bytes(uart_num, test_str, strlen(test_str));
 }
 
-
-
-void app_main()
+void i2c_mpu6050_data_get()
 {
     // I2C总线的配置
     i2c_master_bus_config_t i2c_mst_conf = {
@@ -77,16 +74,21 @@ void app_main()
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &dev_handle));
     const uint8_t READ_ADDR[1] = {0x3B};
     const uint8_t add_r[14] = {0};
-    while (1){
-    //先发送需要用的寄存器地址
-    i2c_master_transmit(dev_handle, (uint8_t *)READ_ADDR, 1, 10000);
-    //读数据
-    i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
-    
+    while (1)
+    {
+        // 先发送需要用的寄存器地址
+        i2c_master_transmit(dev_handle, (uint8_t *)READ_ADDR, 1, 10000);
+        // 读数据
+        i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
+
         ESP_LOGI(TAG, "Acceleration: X:%d, Y:%d, Z:%d", add_r[0] << 8 | add_r[1], add_r[2] << 8 | add_r[3], add_r[4] << 8 | add_r[5]);
         ESP_LOGI(TAG, "Gyroscope: X:%d, Y:%d, Z:%d", add_r[8] << 8 | add_r[9], add_r[10] << 8 | add_r[11], add_r[12] << 8 | add_r[13]);
-        //i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
+        // i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
-        // uart_send();idf.py -p com5 flash monitor
+}
+    void app_main()
+    {
+        i2c_mpu6050_data_get();
+        // uart_send();
     }
