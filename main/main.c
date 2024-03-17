@@ -1,94 +1,97 @@
+#include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/uart.h"
-#include "string.h"
-#include "driver/gpio.h"
-#include "esp_err.h"
-#include "driver/i2c_master.h"
+#include "esp_system.h"
 #include "esp_log.h"
-#include <stdio.h>
+#include "driver/i2c.h"
 
-#define TX_PIN GPIO_NUM_4
-#define RX_PIN GPIO_NUM_5
-const uart_port_t uart_num = UART_NUM_0;
-const char *test_str = "hello world\n";
+#define I2C_MASTER_SCL_IO    4    /*!< gpio number for I2C master clock */
+#define I2C_MASTER_SDA_IO    5    /*!< gpio number for I2C master data  */
+#define I2C_MASTER_NUM        I2C_NUM_0    /*!< I2C port number for master dev */
+#define I2C_MASTER_FREQ_HZ    100000     /*!< I2C master clock frequency */
+#define I2C_MASTER_TX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
+#define I2C_MASTER_RX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
+#define MPU6050_SENSOR_ADDR                 0x68 /*!< slave address for MPU6050 sensor */
+#define MPU6050_ACCEL_XOUT_H                0x3B /*!< Register for ACCEL_XOUT_H */
+#define MPU6050_PWR_MGMT_1                  0x6B /*!< Register for PWR_MGMT_1 */
+#define WRITE_BIT                           I2C_MASTER_WRITE /*!< I2C master write */
+#define READ_BIT                            I2C_MASTER_READ  /*!< I2C master read */
+#define ACK_CHECK_EN                        0x1     /*!< I2C master will check ack from slave*/
+#define ACK_CHECK_DIS                       0x0     /*!< I2C master will not check ack from slave */
+#define ACK_VAL                             0x0         /*!< I2C ack value */
+#define NACK_VAL                            0x1         /*!< I2C nack value */
 
-#define SDA_PIN GPIO_NUM_5
-#define SCL_PIN GPIO_NUM_4
-#define I2C_HZ 1000000
-#define I2C_MASTER_NUM I2C_NUM_0
-#define READ_ADD 0x43 // 陀螺仪的地址
-#define I2C_MPU_ADDR 0x68
-#define DATA_LENGTH 100
-#define DATA_WR I2C_MASTER_WRITE
-#define DARA_RD I2C_MASTER_READ
-const uint8_t mpu6050_address; // address
-const bool ACK_EN = true;      // Enable ACK signal
-const TickType_t time_out = 1000 / portTICK_PERIOD_MS;
-static const char *TAG = "mpu6050";
+static const char *TAG = "MPU6050";
 
-void uart_send()
+// i2c master initialization
+void i2c_master_init()
 {
-    const uart_config_t uart_config = {
-        .baud_rate = 115200,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-        .rx_flow_ctrl_thresh = 0,
-    };
-    // 配置UART参数
-    ESP_ERROR_CHECK(uart_param_config(uart_num, &uart_config));
-    // 设置UART引脚
-    ESP_ERROR_CHECK(uart_set_pin(uart_num, TX_PIN, RX_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
-    // 安装UART驱动程序，设置数据缓冲区，并获取事件队列
-    const int uart_buffer_size = (1024 * 2);
-    QueueHandle_t uart_queue;
-    ESP_ERROR_CHECK(uart_driver_install(uart_num, uart_buffer_size, uart_buffer_size, 10, &uart_queue, 0));
-    // send message
-    uart_write_bytes(uart_num, test_str, strlen(test_str));
+    int i2c_master_port = I2C_MASTER_NUM;
+    i2c_config_t conf;
+    conf.mode = I2C_MODE_MASTER;
+    conf.sda_io_num = I2C_MASTER_SDA_IO;
+    conf.scl_io_num = I2C_MASTER_SCL_IO;
+    conf.sda_pullup_en = GPIO_PULLUP_ENABLE;
+    conf.scl_pullup_en = GPIO_PULLUP_ENABLE;
+    conf.master.clk_speed = I2C_MASTER_FREQ_HZ;
+    i2c_param_config(i2c_master_port, &conf);
+    i2c_driver_install(i2c_master_port, conf.mode, I2C_MASTER_RX_BUF_DISABLE, I2C_MASTER_TX_BUF_DISABLE, 0);
 }
 
-void i2c_mpu6050_data_get()
+//Generic function to write a byte to MPU6050
+esp_err_t mpu6050_write_byte(uint8_t regAddr, uint8_t data)
 {
-    // I2C总线的配置
-    i2c_master_bus_config_t i2c_mst_conf = {
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .i2c_port = I2C_MASTER_NUM,
-        .scl_io_num = SCL_PIN,
-        .sda_io_num = SDA_PIN,
-        .glitch_ignore_cnt = 0, // if the glitch period on the line is less than 7, it can be filtered out
-        .flags.enable_internal_pullup = true,
-    };
-    // 创建I2C总线句柄，以此管控i2c总线上通信
-    i2c_master_bus_handle_t bus_handle;
-    ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_mst_conf, &bus_handle)); // 创建一个新的i2c主总线,将其句柄存储在bus_handle中
-    // 配置MPU6050
-    i2c_device_config_t dev_cfg = {
-        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
-        .device_address = I2C_MPU_ADDR, // mpu6050的i2c地址
-        .scl_speed_hz = 100000,
-    };
-    // 添加MPU6050设备到I2C总线
-    i2c_master_dev_handle_t dev_handle;
-    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &dev_handle));
-    const uint8_t READ_ADDR[1] = {0x3B};
-    const uint8_t add_r[14] = {0};
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, MPU6050_SENSOR_ADDR << 1 | WRITE_BIT, ACK_CHECK_EN);
+    i2c_master_write_byte(cmd, regAddr, ACK_CHECK_EN);
+    i2c_master_write_byte(cmd, data, ACK_CHECK_EN);
+    i2c_master_stop(cmd);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_PERIOD_MS);
+    i2c_cmd_link_delete(cmd);
+    return ret;
+}
+
+// Generic function to read multiple bytes from MPU6050
+esp_err_t mpu6050_read_bytes(uint8_t regAddr, uint8_t *data, uint16_t length)
+{
+    if (length == 0) {
+        return ESP_OK;
+    }
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, MPU6050_SENSOR_ADDR << 1 | WRITE_BIT, ACK_CHECK_EN);
+    i2c_master_write_byte(cmd, regAddr, ACK_CHECK_EN);
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, MPU6050_SENSOR_ADDR << 1 | READ_BIT, ACK_CHECK_EN);
+    if (length > 1) {
+        i2c_master_read(cmd, data, length - 1, ACK_VAL);
+    }
+    i2c_master_read_byte(cmd, data + length - 1, NACK_VAL);
+    i2c_master_stop(cmd);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_PERIOD_MS);
+    i2c_cmd_link_delete(cmd);
+    return ret;
+}
+
+// Task to read data from MPU6050
+
+void mpu6050_task(void *arg)
+{
+    uint8_t sensor_data[14];
+    i2c_master_init();
+    mpu6050_write_byte(MPU6050_PWR_MGMT_1, 0); // Wake up MPU6050
+
     while (1)
     {
-        // 先发送需要用的寄存器地址
-        i2c_master_transmit(dev_handle, (uint8_t *)READ_ADDR, 1, 10000);
-        // 读数据
-        i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
-
-        ESP_LOGI(TAG, "Acceleration: X:%d, Y:%d, Z:%d", add_r[0] << 8 | add_r[1], add_r[2] << 8 | add_r[3], add_r[4] << 8 | add_r[5]);
-        ESP_LOGI(TAG, "Gyroscope: X:%d, Y:%d, Z:%d", add_r[8] << 8 | add_r[9], add_r[10] << 8 | add_r[11], add_r[12] << 8 | add_r[13]);
-        // i2c_master_receive(dev_handle, (uint8_t *)add_r, 14, 10000);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        mpu6050_read_bytes(MPU6050_ACCEL_XOUT_H, sensor_data, 14);
+        ESP_LOGI(TAG, "Acceleration: X:%d, Y:%d, Z:%d", sensor_data[0] << 8 | sensor_data[1], sensor_data[2] << 8 | sensor_data[3], sensor_data[4] << 8 | sensor_data[5]);
+        ESP_LOGI(TAG, "Gyroscope: X:%d, Y:%d, Z:%d", sensor_data[8] << 8 | sensor_data[9], sensor_data[10] << 8 | sensor_data[11], sensor_data[12] << 8 | sensor_data[13]);
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
-    void app_main()
-    {
-        i2c_mpu6050_data_get();
-        // uart_send();
-    }
+
+void app_main(void)
+{
+    xTaskCreate(mpu6050_task, "mpu6050_task", 2048, NULL, 5, NULL);
+}
