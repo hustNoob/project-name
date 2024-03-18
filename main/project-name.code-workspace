@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "Projiect_1",
+			"path": "D:/RVfpgaLabs/Programs/Lab3/Projiect_1"
+		},
+		{
+			"name": "projiect_3",
+			"path": "D:/RVfpgaLabs/Programs/Lab3/projiect_3"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"condition_variable": "c",
+			"future": "c",
+			"atomic": "c",
+			"esp_log.h": "c",
+			"i2c_master.h": "c",
+			"i2c_types.h": "c",
+			"stdio.h": "c"
+		}
+	}
+}

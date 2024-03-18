@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_system.h"
+#include "esp_log.h"
+#include "driver/i2c.h"
+#include <string.h>
+#include "esp_err.h"
+#include "driver/gpio.h"
+#include "driver/uart.h"
