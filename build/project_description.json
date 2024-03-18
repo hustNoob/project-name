@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "project-name",
-    "project_version":    "1",
+    "project_version":    "020f85a-dirty",
     "project_path":       "C:/Users/binbin/Desktop/esp/project-name",
     "idf_path":           "D:/esp/v5.2.1/esp-idf",
     "build_dir":          "C:/Users/binbin/Desktop/esp/project-name/build",

@@ -1,75 +1,45 @@
-ESP-ROM:esp32s3-20210327
-Build:Mar 27 2021
-rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
-SPIWP:0xee
-mode:DIO, clock div:1
-load:0x3fce3810,len:0x178c
-load:0x403c9700,len:0x4
-load:0x403c9704,len:0xcbc
-load:0x403cc700,len:0x2da0
-entry 0x403c9914
-[0;32mI (27) boot: ESP-IDF v5.2.1 2nd stage bootloader[0m
-[0;32mI (27) boot: compile time Mar 15 2024 16:59:06[0m
-[0;32mI (27) boot: Multicore bootloader[0m
-[0;32mI (30) boot: chip revision: v0.2[0m
-[0;32mI (34) boot.esp32s3: Boot SPI Speed : 80MHz[0m
-[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
-[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
-[0;32mI (48) boot: Enabling RNG early entropy source...[0m
-[0;32mI (53) boot: Partition Table:[0m
-[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
-[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
-[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
-[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
-[0;32mI (87) boot: End of partition table[0m
-[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c020020 size=0dfc4h ( 57284) map[0m
-[0;32mI (110) esp_image: segment 1: paddr=0001dfec vaddr=3fc92400 size=0202ch (  8236) load[0m
-[0;32mI (112) esp_image: segment 2: paddr=00020020 vaddr=42000020 size=1bf08h (114440) map[0m
-[0;32mI (137) esp_image: segment 3: paddr=0003bf30 vaddr=3fc9442c size=008b4h (  2228) load[0m
-[0;32mI (138) esp_image: segment 4: paddr=0003c7ec vaddr=40374000 size=0e398h ( 58264) load[0m
-[0;32mI (161) boot: Loaded app from partition at offset 0x10000[0m
-[0;32mI (161) boot: Disabling RNG early entropy source...[0m
-[0;32mI (173) cpu_start: Multicore app[0m
-[0;32mI (182) cpu_start: Pro cpu start user code[0m
-[0;32mI (182) cpu_start: cpu freq: 160000000 Hz[0m
-[0;32mI (182) cpu_start: Application information:[0m
-[0;32mI (185) cpu_start: Project name:     project-name[0m
-[0;32mI (191) cpu_start: App version:      1[0m
-[0;32mI (195) cpu_start: Compile time:     Mar 17 2024 15:51:23[0m
-[0;32mI (201) cpu_start: ELF file SHA256:  75908d65a...[0m
-[0;32mI (207) cpu_start: ESP-IDF:          v5.2.1[0m
-[0;32mI (212) cpu_start: Min chip rev:     v0.0[0m
-[0;32mI (216) cpu_start: Max chip rev:     v0.99 [0m
-[0;32mI (221) cpu_start: Chip rev:         v0.2[0m
-[0;32mI (226) heap_init: Initializing. RAM available for dynamic allocation:[0m
-[0;32mI (233) heap_init: At 3FC955D0 len 00054140 (336 KiB): RAM[0m
-[0;32mI (239) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
-[0;32mI (245) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
-[0;32mI (251) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM[0m
-[0;32mI (259) spi_flash: detected chip: gd[0m
-[0;32mI (262) spi_flash: flash io: dio[0m
-[0;33mW (266) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
-[0;32mI (279) sleep: Configure to isolate all GPIO pins in sleep state[0m
-[0;32mI (286) sleep: Enable automatic switching of GPIO sleep configuration[0m
-[0;32mI (293) main_task: Started on CPU0[0m
-[0;32mI (303) main_task: Calling app_main()[0m
-[0;32mI (303) gpio: GPIO[5]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0 [0m
-[0;32mI (313) gpio: GPIO[4]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0 [0m
-[0;32mI (323) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (323) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (1333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (1333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (2333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (2333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (3333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (3333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (4333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (4333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (5333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (5333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (6333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (6333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (7333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (7333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
-[0;32mI (8333) mpu6050: Acceleration: X:0, Y:0, Z:0[0m
-[0;32mI (8333) mpu6050: Gyroscope: X:0, Y:0, Z:0[0m
+-- IDF_TARGET is not set, guessed 'esp32s3' from sdkconfig 'C:/Users/binbin/Desktop/esp/project-name/sdkconfig'
+-- Found Git: D:/Git/cmd/git.exe (found version "2.44.0.windows.1") 
+-- ccache will be used for faster recompilation
+-- The C compiler identification is GNU 13.2.0
+-- The CXX compiler identification is GNU 13.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: D:/Espressif/tools/xtensa-esp-elf/esp-13.2.0_20230928/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc.exe
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/Espressif/tools/xtensa-esp-elf/esp-13.2.0_20230928/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Espressif/tools/xtensa-esp-elf/esp-13.2.0_20230928/xtensa-esp-elf/bin/xtensa-esp32s3-elf-g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Building ESP-IDF components for target esp32s3
+-- Project sdkconfig file C:/Users/binbin/Desktop/esp/project-name/sdkconfig
+-- Compiler supported targets: xtensa-esp-elf
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of time_t
+-- Check size of time_t - done
+-- Found Python3: D:/Espressif/python_env/idf5.2_py3.8_env/Scripts/python.exe (found version "3.8.2") found components: Interpreter 
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- App "project-name" version: 020f85a-dirty
+-- Adding linker script C:/Users/binbin/Desktop/esp/project-name/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_system/ld/esp32s3/sections.ld.in
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libgcc.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.newlib.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.version.ld
+-- Adding linker script D:/esp/v5.2.1/esp-idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_bootloader_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport touch_element ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: D:/esp/v5.2.1/esp-idf/components/app_trace D:/esp/v5.2.1/esp-idf/components/app_update D:/esp/v5.2.1/esp-idf/components/bootloader D:/esp/v5.2.1/esp-idf/components/bootloader_support D:/esp/v5.2.1/esp-idf/components/bt D:/esp/v5.2.1/esp-idf/components/cmock D:/esp/v5.2.1/esp-idf/components/console D:/esp/v5.2.1/esp-idf/components/cxx D:/esp/v5.2.1/esp-idf/components/driver D:/esp/v5.2.1/esp-idf/components/efuse D:/esp/v5.2.1/esp-idf/components/esp-tls D:/esp/v5.2.1/esp-idf/components/esp_adc D:/esp/v5.2.1/esp-idf/components/esp_app_format D:/esp/v5.2.1/esp-idf/components/esp_bootloader_format D:/esp/v5.2.1/esp-idf/components/esp_coex D:/esp/v5.2.1/esp-idf/components/esp_common D:/esp/v5.2.1/esp-idf/components/esp_eth D:/esp/v5.2.1/esp-idf/components/esp_event D:/esp/v5.2.1/esp-idf/components/esp_gdbstub D:/esp/v5.2.1/esp-idf/components/esp_hid D:/esp/v5.2.1/esp-idf/components/esp_http_client D:/esp/v5.2.1/esp-idf/components/esp_http_server D:/esp/v5.2.1/esp-idf/components/esp_https_ota D:/esp/v5.2.1/esp-idf/components/esp_https_server D:/esp/v5.2.1/esp-idf/components/esp_hw_support D:/esp/v5.2.1/esp-idf/components/esp_lcd D:/esp/v5.2.1/esp-idf/components/esp_local_ctrl D:/esp/v5.2.1/esp-idf/components/esp_mm D:/esp/v5.2.1/esp-idf/components/esp_netif D:/esp/v5.2.1/esp-idf/components/esp_netif_stack D:/esp/v5.2.1/esp-idf/components/esp_partition D:/esp/v5.2.1/esp-idf/components/esp_phy D:/esp/v5.2.1/esp-idf/components/esp_pm D:/esp/v5.2.1/esp-idf/components/esp_psram D:/esp/v5.2.1/esp-idf/components/esp_ringbuf D:/esp/v5.2.1/esp-idf/components/esp_rom D:/esp/v5.2.1/esp-idf/components/esp_system D:/esp/v5.2.1/esp-idf/components/esp_timer D:/esp/v5.2.1/esp-idf/components/esp_wifi D:/esp/v5.2.1/esp-idf/components/espcoredump D:/esp/v5.2.1/esp-idf/components/esptool_py D:/esp/v5.2.1/esp-idf/components/fatfs D:/esp/v5.2.1/esp-idf/components/freertos D:/esp/v5.2.1/esp-idf/components/hal D:/esp/v5.2.1/esp-idf/components/heap D:/esp/v5.2.1/esp-idf/components/http_parser D:/esp/v5.2.1/esp-idf/components/idf_test D:/esp/v5.2.1/esp-idf/components/ieee802154 D:/esp/v5.2.1/esp-idf/components/json D:/esp/v5.2.1/esp-idf/components/log D:/esp/v5.2.1/esp-idf/components/lwip C:/Users/binbin/Desktop/esp/project-name/main D:/esp/v5.2.1/esp-idf/components/mbedtls D:/esp/v5.2.1/esp-idf/components/mqtt D:/esp/v5.2.1/esp-idf/components/newlib D:/esp/v5.2.1/esp-idf/components/nvs_flash D:/esp/v5.2.1/esp-idf/components/nvs_sec_provider D:/esp/v5.2.1/esp-idf/components/openthread D:/esp/v5.2.1/esp-idf/components/partition_table D:/esp/v5.2.1/esp-idf/components/perfmon D:/esp/v5.2.1/esp-idf/components/protobuf-c D:/esp/v5.2.1/esp-idf/components/protocomm D:/esp/v5.2.1/esp-idf/components/pthread D:/esp/v5.2.1/esp-idf/components/sdmmc D:/esp/v5.2.1/esp-idf/components/soc D:/esp/v5.2.1/esp-idf/components/spi_flash D:/esp/v5.2.1/esp-idf/components/spiffs D:/esp/v5.2.1/esp-idf/components/tcp_transport D:/esp/v5.2.1/esp-idf/components/touch_element D:/esp/v5.2.1/esp-idf/components/ulp D:/esp/v5.2.1/esp-idf/components/unity D:/esp/v5.2.1/esp-idf/components/usb D:/esp/v5.2.1/esp-idf/components/vfs D:/esp/v5.2.1/esp-idf/components/wear_levelling D:/esp/v5.2.1/esp-idf/components/wifi_provisioning D:/esp/v5.2.1/esp-idf/components/wpa_supplicant D:/esp/v5.2.1/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/binbin/Desktop/esp/project-name/build

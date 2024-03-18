@@ -299,7 +299,7 @@ ESP_PLATFORM:UNINITIALIZED=1
 GEN_FILES:BOOL=
 
 //Git command line client
-GIT_EXECUTABLE:FILEPATH=D:/Espressif/tools/idf-git/2.43.0/cmd/git.exe
+GIT_EXECUTABLE:FILEPATH=D:/Git/cmd/git.exe
 
 //IDF Build Target
 IDF_TARGET:STRING=esp32s3
@@ -335,7 +335,7 @@ Mbed TLS_IS_TOP_LEVEL:STATIC=OFF
 Mbed TLS_SOURCE_DIR:STATIC=D:/esp/v5.2.1/esp-idf/components/mbedtls/mbedtls
 
 //No help, variable specified on the command line.
-PYTHON:UNINITIALIZED=D:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe
+PYTHON:UNINITIALIZED=D:\Espressif\python_env\idf5.2_py3.8_env\Scripts\python.exe
 
 //No help, variable specified on the command line.
 PYTHON_DEPS_CHECKED:UNINITIALIZED=1
@@ -572,9 +572,9 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
 C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS:INTERNAL=1
 //Details about finding Git
-FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[D:/Espressif/tools/idf-git/2.43.0/cmd/git.exe][v2.43.0.windows.1()]
+FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[D:/Git/cmd/git.exe][v2.44.0.windows.1()]
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[D:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe][cfound components: Interpreter ][v3.11.2()]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[D:/Espressif/python_env/idf5.2_py3.8_env/Scripts/python.exe][cfound components: Interpreter ][v3.8.2()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //Have include stddef.h
@@ -589,8 +589,8 @@ HAVE_TIME_T_SIZE:INTERNAL=TRUE
 TIME_T_SIZE:INTERNAL=8
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/project-name
-_Python3_EXECUTABLE:INTERNAL=D:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe
+_Python3_EXECUTABLE:INTERNAL=D:/Espressif/python_env/idf5.2_py3.8_env/Scripts/python.exe
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;2;32;;;D:\Espressif\tools\idf-python\3.11.2\Lib;D:\Espressif\tools\idf-python\3.11.2\Lib;D:\Espressif\python_env\idf5.2_py3.11_env\Lib\site-packages;D:\Espressif\python_env\idf5.2_py3.11_env\Lib\site-packages
-_Python3_INTERPRETER_SIGNATURE:INTERNAL=98c5685419cd157b37c10f7ac2b2d839
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;8;2;32;;;C:\Program Files\Python38\Lib;C:\Program Files\Python38\Lib;D:\Espressif\python_env\idf5.2_py3.8_env\Lib\site-packages;D:\Espressif\python_env\idf5.2_py3.8_env\Lib\site-packages
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=70203e5bed8ffca21bb5ec6e0455d2b5
 

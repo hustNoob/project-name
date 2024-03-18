@@ -1,8 +1,0 @@
-[0;33m--- esp-idf-monitor 1.4.0 on flash 115200 ---[0m
-[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
-[0;33mConnection to flash failed. Available ports:
-COM3
-COM11
-COM4
-COM12[0m
-[0m
