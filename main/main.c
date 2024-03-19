@@ -2,11 +2,13 @@
 #include "i2c_mpu6050.h"
 #include "uart_send.h"
 #include "wifi.h"
+#include "led.h"
 
 void mpu6050_send();
 
 void app_main(void)
 {
+    //led_light();
     /*以下三个都是带循环的，选一个*/
     //mpu6050_read();
     //uart_send_data();

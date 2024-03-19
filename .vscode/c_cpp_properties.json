@@ -9,7 +9,8 @@
                 "${config:idf.espIdfPathWin}/components/**",
                 "${config:idf.espAdfPath}/components/**",
                 "${config:idf.espAdfPathWin}/components/**",
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "D:/esp/v5.2.1/esp-idf/components/lwip/include"
             ],
             "browse": {
                 "path": [
