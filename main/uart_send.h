@@ -5,7 +5,7 @@
 const uart_port_t uart_num = UART_NUM_0;
 const char *test_str = "hello world\n";
 
-void uart_send()
+void uart_set()
 {
     const uart_config_t uart_config = {
         .baud_rate = 115200,
@@ -26,11 +26,10 @@ void uart_send()
     // send message
 }
 
-void uart_task(void *arg){
-    uart_send();
+void uart_send_data(){
+    uart_set();
     while (1)
     {
         uart_write_bytes(uart_num, test_str, strlen(test_str));
     }
-    
 }

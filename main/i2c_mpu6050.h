@@ -74,7 +74,8 @@ esp_err_t mpu6050_read_bytes(uint8_t regAddr, uint8_t *data, uint16_t length)
     return ret;
 }
 
-void mpu6050_task(void *arg)
+//封装一个读数据的函数
+void mpu6050_read()
 {
     uint8_t read_data[14];
     i2c_master_init();
